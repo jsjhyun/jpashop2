@@ -30,3 +30,7 @@
 - Github
 - H2
 - Thymeleaf
+
+## 오류 해결
+- H2 db 연결 오류 : File corrupted while reading record: null. Possible solution: use the recovery tool
+  > jpashop.mv.db 삭제 후 다시 생성 
