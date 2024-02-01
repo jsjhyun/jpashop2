@@ -6,7 +6,6 @@ spring:
     password: ''
     driver-class-name: org.h2.Driver
 
-
   jpa:
     open-in-view: false
     hibernate:
@@ -16,9 +15,9 @@ spring:
         format_sql: true
         # show_sql: true
 logging.level:
-          root: info
-    #org.hibernate.SQL: debug
-    #org.hibernate.type: trace
+  root: info
+  #org.hibernate.SQL: debug
+  #org.hibernate.type: trace
 
   #org.hibernate.orm.jdbc.bind: trace #스프링 부트 3.x, hibernate6
   #org.hibernate.type: trace #스프링 부트 2.x, hibernate5

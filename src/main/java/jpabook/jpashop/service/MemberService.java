@@ -18,7 +18,7 @@ public class MemberService {
     /**
      * 회원가입
      */
-// 쓰기는 readOnly X
+    // 쓰기는 readOnly X
     public Long join(Member member) {
         validateDuplicateMember(member); //중복 회원 검증
         memberRepository.save(member);
@@ -41,6 +41,6 @@ public class MemberService {
 
     @Transactional(readOnly = true)
     public Member findOne(Long memberId) {
-        return memberRepository.findOne(memberId);
+        return memberRepository.findById(memberId).orElse(null);
     }
 }

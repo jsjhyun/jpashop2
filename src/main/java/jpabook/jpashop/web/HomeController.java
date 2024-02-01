@@ -7,7 +7,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @Controller
 @Slf4j // logger 사용
 public class HomeController {
-
     @RequestMapping("/")
     public String home() {
         log.info("home controller");

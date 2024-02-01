@@ -15,23 +15,24 @@ import java.util.List;
 @Transactional(readOnly = true)
 @RequiredArgsConstructor
 public class OrderService {
+
     private final OrderRepository orderRepository;
     private final MemberRepository memberRepository;
     private final ItemRepository itemRepository;
-
     /**
      * 주문
      */
-    @Transactional // 데이터 변경
+    // @Transactional // 데이터 변경
     public Long order(Long memberId, Long itemId, int count){
 
         // 엔티티 조회
-        Member member = memberRepository.findOne(memberId);
-        Item item = itemRepository.findOne(itemId);
+        Member member = memberRepository.findById(memberId).orElse(null);
+        Item item = itemRepository.findById(itemId).orElse(null);
 
         // 배송정보 생성
         Delivery delivery = new Delivery();
         delivery.setAddress(member.getAddress()); // 회원 주소로 배송을 한다. - 예시
+        delivery.setStatus(DeliveryStatus.READY);
 
         // 주문상품 생성
         OrderItem orderItem = OrderItem.createOrderItem(item, item.getPrice(), count);
@@ -48,10 +49,10 @@ public class OrderService {
     /**
      * 주문 취소
      */
-    @Transactional
+    // @Transactional
     public void cancelOrder(Long orderId){
         // 주문 엔티티 조회
-        Order order = orderRepository.findOne(orderId);
+        Order order = orderRepository.findById(orderId);
         // 주문 취소
         order.cancel();
     }
@@ -60,6 +61,6 @@ public class OrderService {
      * 주문 검색
      */
     public List<Order> findOrders(OrderSearch orderSearch){
-        return orderRepository.findAllByCriteria(orderSearch);
+        return orderRepository.findAll(orderSearch);
     }
 }
