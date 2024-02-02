@@ -10,10 +10,10 @@ import java.util.List;
 import static jpabook.jpashop.domain.QMember.member;
 import static jpabook.jpashop.domain.QOrder.order;
 
-import javax.persistence.EntityManager;
+import jakarta.persistence.EntityManager;
 
 @Repository
-public class OrderRepository {
+public class OrderRepository  {
     private final JPAQueryFactory query;
     private final EntityManager em;
 

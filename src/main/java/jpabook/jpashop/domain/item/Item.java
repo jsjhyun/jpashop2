@@ -1,11 +1,12 @@
 package jpabook.jpashop.domain.item;
 
 import jpabook.jpashop.domain.Category;
+import jpabook.jpashop.domain.CategoryItem;
 import jpabook.jpashop.exception.NotEnoughStockException;
 import lombok.Getter;
 import lombok.Setter;
 
-import javax.persistence.*;
+import jakarta.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -23,8 +24,11 @@ public abstract class Item { // 추상체로 만듬
     private int price;
     private int stockQuantity;
 
-    @ManyToMany(mappedBy = "items")
-    private List<Category> categories = new ArrayList<>();
+//    @ManyToMany(mappedBy = "items")
+//    private List<Category> categories = new ArrayList<>();
+
+    @OneToMany(mappedBy = "item")
+    private List<CategoryItem> categoryItems = new ArrayList<>();
 
     //==비즈니스 로직== // setter가 아닌 비즈니스 로직을 이용해서 수량 조절
     public void addStock(int quantity) { // 재고 수량 증가

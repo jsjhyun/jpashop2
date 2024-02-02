@@ -1,23 +1,22 @@
 spring:
   datasource:
-    driverClassName: org.h2.Driver
-    url: jdbc:h2:tcp://localhost/~/jpashop
-    username: sa
-    password: ''
-    driver-class-name: org.h2.Driver
+    url: jdbc:mysql://localhost:3306/jpashop
+    username: root
+    password: 9836
+    driver-class-name: com.mysql.cj.jdbc.Driver
 
   jpa:
-    open-in-view: false
+    # open-in-view: false
     hibernate:
-      ddl-auto: create #table 자동 생성
+      ddl-auto: none
     properties:
       hibernate:
         format_sql: true
         # show_sql: true
+
 logging.level:
-  root: info
-  #org.hibernate.SQL: debug
-  #org.hibernate.type: trace
+  org.hibernate.SQL: debug
+  org.hibernate.type: trace
 
   #org.hibernate.orm.jdbc.bind: trace #스프링 부트 3.x, hibernate6
   #org.hibernate.type: trace #스프링 부트 2.x, hibernate5

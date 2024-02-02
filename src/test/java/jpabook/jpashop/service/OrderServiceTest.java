@@ -13,8 +13,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.transaction.annotation.Transactional;
-import javax.persistence.EntityManager;
-import javax.persistence.PersistenceContext;
+import jakarta.persistence.EntityManager;
+import jakarta.persistence.PersistenceContext;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.fail;
 
@@ -36,7 +36,7 @@ public class OrderServiceTest {
         Long orderId = orderService.order(member.getId(), item.getId(),
                 orderCount);
 //Then
-        Order getOrder = orderRepository.findOne(orderId);
+        Order getOrder = orderRepository.findById(orderId);
         assertEquals("상품 주문시 상태는 ORDER",OrderStatus.ORDER,
                 getOrder.getStatus());
         assertEquals("주문한 상품 종류 수가 정확해야 한다.",1,
@@ -70,7 +70,7 @@ public class OrderServiceTest {
         //When
         orderService.cancelOrder(orderId);
         //Then
-        Order getOrder = orderRepository.findOne(orderId);
+        Order getOrder = orderRepository.findById(orderId);
         assertEquals("주문 취소시 상태는 CANCEL 이다.",OrderStatus.CANCEL,
                 getOrder.getStatus());
         assertEquals("주문이 취소된 상품은 그만큼 재고가 증가해야 한다.", 10,
