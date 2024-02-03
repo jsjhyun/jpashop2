@@ -22,7 +22,7 @@ public class OrderService {
     /**
      * 주문
      */
-    // @Transactional // 데이터 변경
+    @Transactional // 데이터 변경
     public Long order(Long memberId, Long itemId, int count){
 
         // 엔티티 조회
@@ -49,7 +49,7 @@ public class OrderService {
     /**
      * 주문 취소
      */
-    // @Transactional
+    @Transactional
     public void cancelOrder(Long orderId){
         // 주문 엔티티 조회
         Order order = orderRepository.findById(orderId);

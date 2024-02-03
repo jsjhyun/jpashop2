@@ -14,4 +14,14 @@ public class Book extends Item {
     private String author;
     private String isbn;
 
+    @Override
+    public Item createItem(ItemForm itemForm) {
+        super.setName(itemForm.getName());
+        super.setPrice(itemForm.getPrice());
+        super.setStockQuantity(itemForm.getStockQuantity());
+        this.isbn = itemForm.getIsbn();
+        this.author = itemForm.getAuthor();
+        return this;
+    }
+
 }

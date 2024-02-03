@@ -33,7 +33,7 @@ public class OrderController {
     public String order(@RequestParam("memberId") Long memberId,
                         @RequestParam("itemId") Long itemId, @RequestParam("count") int count) {
         orderService.order(memberId, itemId, count);
-        return "home";
+        return "redirect:/";
     }
 
     @GetMapping("/orders")

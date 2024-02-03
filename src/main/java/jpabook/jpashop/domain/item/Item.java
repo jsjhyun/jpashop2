@@ -30,6 +30,8 @@ public abstract class Item { // 추상체로 만듬
     @OneToMany(mappedBy = "item")
     private List<CategoryItem> categoryItems = new ArrayList<>();
 
+    public abstract Item createItem(ItemForm itemForm);
+
     //==비즈니스 로직== // setter가 아닌 비즈니스 로직을 이용해서 수량 조절
     public void addStock(int quantity) { // 재고 수량 증가
         this.stockQuantity += quantity;

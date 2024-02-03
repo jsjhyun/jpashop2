@@ -1,34 +1,50 @@
 package jpabook.jpashop.web;
 
-import jpabook.jpashop.domain.item.Book;
-import jpabook.jpashop.domain.item.Item;
+import jakarta.validation.Valid;
+import jpabook.jpashop.domain.item.*;
+import jpabook.jpashop.exception.NotHasDiscriminator;
 import jpabook.jpashop.service.ItemService;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @Controller
 @RequiredArgsConstructor
+@Slf4j
 public class ItemController {
+
     private final ItemService itemService;
 
     @GetMapping(value = "/items/new")
-    public String createForm(Model model) { // model로 data를 실어 뷰로 넘김
-        model.addAttribute("form", new BookForm());  // form 이름에 BookForm()를 넣을 것임
-        return "items/createItemForm"; // 화면 이름.html templates에 렌더링
+    public String newItemsForm(Model model) { // model로 data를 실어 뷰로 넘김
+        log.info("call get /items/new");
+        model.addAttribute("itemForm", new ItemForm());  // form 이름에 BookForm()를 넣을 것임
+        return "items/newItemForm"; // 화면 이름.html templates에 렌더링
     }
 
     @PostMapping(value = "/items/new")
-    public String create(BookForm form) { // 실무에서는 setter 모두 날림 -> static 생성자 메서드 사용
-        Book book = new Book();
-        book.setName(form.getName());
-        book.setPrice(form.getPrice());
-        book.setStockQuantity(form.getStockQuantity());
-        book.setAuthor(form.getAuthor());
-        book.setIsbn(form.getIsbn());
-        itemService.saveItem(book);
+    public String create(@Valid ItemForm itemForm, BindingResult result, Model model) throws NotHasDiscriminator { // 실무에서는 setter 모두 날림 -> static 생성자 메서드 사용
+        log.info("call post members/new");
+
+        if(result.hasErrors()){
+            return "items/newItemForm";
+        }
+        Item item = null;
+        if("A".equals(itemForm.getDtype())){
+            item = new Album().createItem(itemForm);
+        } else if("B".equals(itemForm.getDtype())){
+            item = new Book().createItem(itemForm); // 책 생성
+        }else if("M".equals(itemForm.getDtype())){
+            item = new Movie().createItem(itemForm);  // 영화 생성
+        }else{
+            throw new NotHasDiscriminator("Not Has Discriminator");
+        }
+        itemService.saveItem(item); // item persist()
+
         return "redirect:/items";
     }
     /**
