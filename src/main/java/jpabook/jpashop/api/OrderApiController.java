@@ -1,6 +1,6 @@
 package jpabook.jpashop.api;
 
-import jpabook.jpashop.service.OrderService;
+import jpabook.jpashop.domain.order.service.OrderService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.RestController;
 

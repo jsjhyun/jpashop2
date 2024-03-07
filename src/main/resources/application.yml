@@ -1,22 +1,31 @@
+server:
+  port: 8080
+
 spring:
+  profiles:
+    default: dev
   datasource:
-    url: jdbc:mysql://localhost:3306/jpashop
+    url: jdbc:mysql://localhost:3306/jpashop?useSSL=false&useUnicode=true&serverTimezone=Asia/Seoul
     username: root
     password: 9836
     driver-class-name: com.mysql.cj.jdbc.Driver
 
   jpa:
     # open-in-view: false
+    # database-platform: org.hibernate.dialect.MySQL5InnoDBDialect
     hibernate:
-      ddl-auto: none
+      ddl-auto: validate
     properties:
       hibernate:
         format_sql: true
         # show_sql: true
+    defer-datasource-initialization: false
 
 logging.level:
   org.hibernate.SQL: debug
+  root : info
 #  org.hibernate.type: trace
 
-  #org.hibernate.orm.jdbc.bind: trace #스프링 부트 3.x, hibernate6
-  #org.hibernate.type: trace #스프링 부트 2.x, hibernate5
+seed:
+  key: "gusrnl98"
+  iv: "gusgus9836!"
